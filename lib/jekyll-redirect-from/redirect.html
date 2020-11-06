@@ -4,7 +4,15 @@
   <title>Redirecting&hellip;</title>
   <link rel="canonical" href="{{ page.redirect.to }}">
   <script>
-    window.location = "{{ page.redirect.to }}" + location.search + location.hash;
+    var dest = "{{ page.redirect.to }}";
+    // include the search params and hash from the current URL, unless otherwise specified
+    if (!dest.includes("?")) {
+      dest += location.search;
+    }
+    if (!dest.includes("#")) {
+      dest += location.hash;
+    }
+    location = dest;
   </script>
   <meta http-equiv="refresh" content="0; url={{ page.redirect.to }}">
   <meta name="robots" content="noindex">
